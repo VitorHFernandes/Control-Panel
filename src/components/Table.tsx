@@ -28,6 +28,7 @@ const Table = ({ clients, selectedClient, excludedClient }: iTable) => {
 
   const renderData = () => {
     return clients?.map((client, i) => {
+      
       return (
         <tr 
           key={client.id}

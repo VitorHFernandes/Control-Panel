@@ -1,7 +1,9 @@
 'use client'
+import Button from "@/components/Button";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
-import Client from "@/core/Client"
+import Form from "@/components/Form";
+import Client from "@/core/Client";
 
 export default function Home() {
   const clients = [
@@ -29,7 +31,13 @@ export default function Home() {
         text-white
       `}>
       <Layout title="Simple register">
-        <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table>
+        <div className="flex justify-end">
+          <Button color='blue' className="mb-4">
+            New client
+          </Button>
+        </div>
+        {/* <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table> */}
+        <Form />
       </Layout>
     </div>
   );
