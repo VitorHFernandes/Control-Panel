@@ -5,7 +5,7 @@ interface iButton {
   onClick?: () => void
 }
 
-const Button = ({ color = 'gray', onClick, className, children }: iButton) => {
+const Button = ({ color, onClick, className, children }: iButton) => {
   return (
     <button onClick={ onClick }
       className={`

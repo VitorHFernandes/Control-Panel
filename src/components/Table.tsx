@@ -50,7 +50,7 @@ const Table = ({ clients, selectedClient, excludedClient }: iTable) => {
           <button onClick={ () => selectedClient?.(client) }
             className={`
               flex justify-center items-center p-2 m-1
-              text-green-600 rounded-full hover:bg-purple-100
+              text-green-600 rounded-full hover:bg-purple-50
             `}  
           >
             {IconEdit}
@@ -60,7 +60,7 @@ const Table = ({ clients, selectedClient, excludedClient }: iTable) => {
           <button onClick={ () => excludedClient?.(client) }
             className={`
               flex justify-center items-center p-2 m-1
-              text-red-500 rounded-full hover:bg-purple-100
+              text-red-500 rounded-full hover:bg-purple-50
             `}  
           >{IconTrash}</button>
         ) : false }

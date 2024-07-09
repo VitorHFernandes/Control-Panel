@@ -23,10 +23,10 @@ const Form = ({ client, cancel, clientChange }: iForm) => {
       <Input text="Age" value={age} type="number" onChange={setAge} className="mb-5" />
       
       <div className="flex justify-end mt-7">
-        <Button color="green" className="mr-2" onClick={ () => clientChange?.(new Client(name, +age, id)) }>
+        <Button color="blue" className="mr-2" onClick={ () => clientChange?.(new Client(name, +age, id)) }>
           { id ? 'Update' : 'Save' }
         </Button>
-        <Button onClick={cancel}>
+        <Button onClick={cancel} color="gray">
             Cancel
         </Button>
       </div>
