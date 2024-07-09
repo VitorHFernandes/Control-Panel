@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import Table from "@/components/Table";
 import Form from "@/components/Form";
 import Client from "@/core/Client";
+import { useState } from "react";
 
 export default function Home() {
   const clients = [
@@ -23,6 +24,8 @@ export default function Home() {
   const selectedClient = (client: Client) => { console.log(client.name) }
   const excludedClient = (client: Client) => { console.log(client.name) }
 
+  const [visible, setVisible] = useState<'table' | 'form'>('table')
+
   return (
     <div 
       className={`
@@ -31,13 +34,18 @@ export default function Home() {
         text-white
       `}>
       <Layout title="Simple register">
-        <div className="flex justify-end">
-          <Button color='blue' className="mb-4">
-            New client
-          </Button>
-        </div>
-        {/* <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table> */}
-        <Form />
+        { visible === 'table' ? (
+          <>
+            <div className="flex justify-end">
+              <Button color='blue' className="mb-4" onClick={() => setVisible('form')}>
+                New client
+              </Button>
+            </div>
+            <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table>
+          </>
+        ) : (
+          <Form client={clients[2]} cancel={() => setVisible('table')} />
+        ) }
       </Layout>
     </div>
   );
