@@ -1,3 +1,4 @@
+'use client'
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
 import Client from "@/core/Client"
@@ -17,6 +18,9 @@ export default function Home() {
     new Client('Allan'    , 10, '11')
   ]
 
+  const selectedClient = (client: Client) => { console.log(client.name) }
+  const excludedClient = (client: Client) => { console.log(client.name) }
+
   return (
     <div 
       className={`
@@ -25,7 +29,7 @@ export default function Home() {
         text-white
       `}>
       <Layout title="Simple register">
-        <Table clients={clients}></Table>
+        <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table>
       </Layout>
     </div>
   );

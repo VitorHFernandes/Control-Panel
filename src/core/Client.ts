@@ -1,4 +1,4 @@
-export default class Client {
+class Client {
   #id: string | null
   #name: string
   #age: number
@@ -14,4 +14,7 @@ export default class Client {
   get id() { return this.#id }
   get age() { return this.#age }
   get name() { return this.#name }
+
 }
+
+export default Client
