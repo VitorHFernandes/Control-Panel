@@ -1,12 +1,15 @@
 'use client'
+import { useState } from "react";
+import Client from "@/core/Client";
 import Button from "@/components/Button";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
 import Form from "@/components/Form";
-import Client from "@/core/Client";
-import { useState } from "react";
 
 export default function Home() {
+  const [client, setClient] = useState<Client>(Client.empty())
+  const [visible, setVisible] = useState<'table' | 'form'>('table')
+  
   const clients = [
     new Client('Ana'      , 34, '1'),
     new Client('José'     , 22, '2'),
@@ -21,10 +24,12 @@ export default function Home() {
     new Client('Allan'    , 10, '11')
   ]
 
-  const selectedClient = (client: Client) => { console.log(client.name) }
-  const excludedClient = (client: Client) => { console.log(client.name) }
+  const selectedClient = (client: Client) => { setClient(client); setVisible('form') }
+  const excludedClient = (client: Client) => { setClient(client); setVisible('form') }
 
-  const [visible, setVisible] = useState<'table' | 'form'>('table')
+  const saveClient = (client: Client) => { setClient(client); setVisible('table') }
+  const newClient = () => { setClient(Client.empty); setVisible('form') }
+
 
   return (
     <div 
@@ -37,14 +42,18 @@ export default function Home() {
         { visible === 'table' ? (
           <>
             <div className="flex justify-end">
-              <Button color='blue' className="mb-4" onClick={() => setVisible('form')}>
+              <Button color='blue' className="mb-4" onClick={newClient}>
                 New client
               </Button>
             </div>
             <Table clients={clients} selectedClient={selectedClient} excludedClient={excludedClient}></Table>
           </>
         ) : (
-          <Form client={clients[2]} cancel={() => setVisible('table')} />
+          <Form 
+            client={ client } 
+            cancel={() => setVisible('table')} 
+            clientChange={saveClient}
+          />
         ) }
       </Layout>
     </div>
