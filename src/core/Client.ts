@@ -1,5 +1,5 @@
 class Client {
-  #id: string | null
+  #id: string | null 
   #name: string
   #age: number
 
