@@ -1,5 +1,3 @@
-'use client'
-
 import Client from "@/core/Client"
 import { IconEdit, IconTrash } from "./Icons"
 

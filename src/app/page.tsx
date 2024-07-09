@@ -15,8 +15,7 @@ export default function Home() {
     showTable,
     clients,
     client
-  } = useClients()
-
+  } = useClients();
 
   return (
     <div 
