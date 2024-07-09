@@ -42,7 +42,10 @@ class ClientCollection implements RepositoryClient {
     }
   }
 
-  async getAll(): Promise<Client[]> { return []; }
+  async getAll(): Promise<Client[]> {
+    const query = await this.#collection().get()
+    return query.docs.map(doc => doc.data()  ?? [])
+  }
 
   #collection() {
     return firebase

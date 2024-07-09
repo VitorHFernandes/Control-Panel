@@ -1,33 +1,35 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Client from "@/core/Client";
 import Button from "@/components/Button";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
 import Form from "@/components/Form";
+import RepositoryClient from "@/core/RepositoryClient";
+import ClientCollection from "@/backend/db/ClientCollection";
 
 export default function Home() {
+
+  const repository: RepositoryClient = new ClientCollection()
+
+  const [clients, setClients] = useState<Client[]>([])
   const [client, setClient] = useState<Client>(Client.empty())
   const [visible, setVisible] = useState<'table' | 'form'>('table')
   
-  const clients = [
-    new Client('Ana'      , 34, '1'),
-    new Client('José'     , 22, '2'),
-    new Client('André'    , 21, '3'),
-    new Client('Wallace'  , 21, '4'),
-    new Client('Mauricio' , 50, '5'),
-    new Client('Rodrigo'  , 43, '6'),
-    new Client('Maykol'   , 37, '7'),
-    new Client('Izadora'  , 20, '8'),
-    new Client('Vítor'    , 22, '9'),
-    new Client('João'     , 8, '10'),
-    new Client('Allan'    , 10, '11')
-  ]
+  const getAll = () => {
+    repository.getAll().then(clients => {
+      setClients(clients)
+      setVisible('table')
+    })
+  }
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(getAll, [])
 
   const selectedClient = (client: Client) => { setClient(client); setVisible('form') }
-  const excludedClient = (client: Client) => { setClient(client); setVisible('form') }
+  const excludedClient = async (client: Client) => { await repository.delete(client); getAll() }
 
-  const saveClient = (client: Client) => { setClient(client); setVisible('table') }
+  const saveClient = async (client: Client) => { await repository.save(client); getAll() }
   const newClient = () => { setClient(Client.empty); setVisible('form') }
 
 
